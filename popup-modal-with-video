@@ -1,0 +1,200 @@
+
+<div class="modal" id="bav-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog vertical-align-center" role="document">
+  <div class="modal-content">
+     <div class="modal-body">
+   <div class="youtube-container">
+      <span class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</span>
+    <div class="youtube-player" data-id="q6tMamFJ0Nk" data-thumbnail="https://imarat.com.pk/wp-content/uploads/2023/01/Bavylon-full-song.00_00_06_21.Still001.jpg"></div>
+</div>
+      </div>
+    
+    </div>
+    
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+if(!localStorage.getItem('popupShown')) {
+jQuery(window).load(function(){
+jQuery('#bav-modal').modal("show");
+localStorage.setItem('popupShown', 'true');
+});
+}
+$('.close').click(function(){
+$('#bav-modal').fadeOut();
+     });
+
+ 
+ /**
+ * Get videos on load
+ */
+(function () {
+    getVideos();
+})();
+function getVideos() {
+var v = document.getElementsByClassName("youtube-player");
+ for (var n = 0; n < v.length; n++) {
+var p = document.createElement("div");
+var id = v[n].getAttribute("data-id");
+
+var placeholder = v[n].hasAttribute("data-thumbnail")
+            ? v[n].getAttribute("data-thumbnail")
+            : "";
+
+if (placeholder.length) p.innerHTML = createCustomThumbail(placeholder);
+        else p.innerHTML = createThumbail(id);
+
+v[n].appendChild(p);
+        p.addEventListener("click", function () {
+            var parent = this.parentNode;
+            createIframe(parent, parent.getAttribute("data-id"));
+        });
+    }
+}
+
+function createCustomThumbail(url) {
+    return (
+        '<img class="youtube-thumbnail" src="' +
+        url +
+        '" alt="Youtube Preview" /><div class="youtube-play-btn"></div>'
+    );
+}
+
+
+function createThumbail(id) {
+    return (
+        '<img class="youtube-thumbnail" src="//i.ytimg.com/vi_webp/' +
+        id +
+        '/maxresdefault.webp" alt="Youtube Preview"><div class="youtube-play-btn"></div>'
+    );
+}
+
+/**
+ * Create and load iframe in Youtube container
+ **/
+function createIframe(v, id) {
+    var iframe = document.createElement("iframe");
+    console.log(v);
+    iframe.setAttribute(
+        "src",
+        "//www.youtube.com/embed/" +
+            id +
+            "?autoplay=1&color=white&autohide=2&modestbranding=1&border=0&wmode=opaque&enablejsapi=1&showinfo=0&rel=0"
+    );
+    iframe.setAttribute("frameborder", "0");
+    iframe.setAttribute("class", "youtube-iframe");
+    v.firstChild.replaceWith(iframe);
+}
+
+/** Pause video on modal close **/
+jQuery("#video-modal").on("hidden.bs.modal", function (e) {
+    $(this).find("iframe").remove();
+});
+
+/** Pause video on modal close **/
+jQuery("#video-modal").on("show.bs.modal", function (e) {
+    getVideos();
+});
+</script>
+<style>
+
+
+   /* #bav-modal .modal-content{
+background: url(https://dev.imarat.com.pk/wp-content/uploads/2023/01/Bavylon-full-song.00_00_06_21.Still001.jpg);
+    background-size: cover;
+    height: 550px;
+        background-position: top;
+        overflow:hidden;
+        
+    }*/
+  #bav-modal .modal-body .close {
+
+    font-size: 4rem;
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    z-index: 1;
+    cursor: pointer;
+}
+/*body.modal-open {
+  height: 100vh;
+  overflow-y: hidden;
+}*/
+#bav-modal .modal-dialog {
+    width: 55%;
+    top:10%;
+}
+
+#bav-modal .modal-content{
+    overflow:hidden;
+}
+.modal-backdrop {
+    z-index: 9999999 !important;
+}
+@media(max-width:767px){
+#bav-modal .modal-dialog {
+    width: 95%;
+    top:32%;
+}
+/*#bav-modal .modal-content {
+    
+    background-size: contain;
+    height: 210px;
+
+    background-repeat: no-repeat;
+}*/
+}
+ 
+#bav-modal .modal-body{
+    margin:0;
+    padding: 0;
+    overflow:hidden;
+}
+.youtube-player {
+  
+    padding-bottom: 56%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: hand;
+    cursor: pointer;
+    display: block;
+}
+
+img.youtube-thumbnail {
+    bottom: 0;
+    display: block;
+    left: 0;
+    margin: auto;
+    max-width: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: auto;
+}
+
+div.youtube-play-btn {
+    height: 72px;
+    width: 72px;
+    left: 50%;
+    top: 50%;
+    margin-left: -36px;
+    margin-top: -36px;
+    position: absolute;
+    background: url("https://imarat.com.pk/wp-content/uploads/2023/01/play-button-icon-png-18919.png") no-repeat center center;
+  background-size: 72px 72px;
+}
+
+.youtube-iframe {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
